@@ -7,3 +7,7 @@ __pycache__/
 
 # Исключить файл с ключами API
 .env
+
+# Исключить файлы логов
+db.sqlite3-shm
+db.sqlite3-wal

@@ -1,5 +1,4 @@
-# schemas.py
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr, Field
 from typing import List, Optional
 from datetime import date
 
@@ -13,19 +12,20 @@ class GenreSchema(BaseModel):
 
 
 class GenreCreateSchema(BaseModel):
-    name: str
+    name: str = Field(..., max_length=100)
 
 
 class AuthorSchema(BaseModel):
     id: int
     name: str
+    biography: Optional[str] = None
 
     class Config:
         orm_mode = True
 
 
 class AuthorCreateSchema(BaseModel):
-    name: str
+    name: str = Field(..., max_length=100)
     biography: Optional[str] = None
 
 
@@ -41,7 +41,7 @@ class BookSchema(BaseModel):
 
 
 class BookCreateSchema(BaseModel):
-    title: str
+    title: str = Field(..., max_length=200)
     published_date: Optional[date]
     author_id: int
     genre_ids: List[int]
@@ -65,22 +65,20 @@ class GenreWithBooksSchema(BaseModel):
     class Config:
         orm_mode = True
 
-# schemas.py
-
 
 class ReaderSchema(BaseModel):
     id: int
     name: str
-    email: str
-    phone: str
-    address: str
+    email: EmailStr
+    phone: str = Field(..., max_length=15)
+    address: str = Field(..., max_length=255)
 
     class Config:
         orm_mode = True
 
 
 class ReaderCreateSchema(BaseModel):
-    name: str
-    email: str
-    phone: str
-    address: str
+    name: str = Field(..., max_length=100)
+    email: EmailStr
+    phone: str = Field(..., max_length=15)
+    address: str = Field(..., max_length=255)

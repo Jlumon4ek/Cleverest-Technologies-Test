@@ -50,6 +50,7 @@ class Reader(Model):
     email = fields.CharField(max_length=255)
     phone = fields.CharField(max_length=255)
     address = fields.TextField()
+    age = fields.IntField(null=True)
 
     class Meta:
         table = "Reader"
@@ -58,6 +59,7 @@ class Reader(Model):
 class LibraryCard(Model):
     id = fields.IntField(primary_key=True)
     reader = fields.OneToOneField('models.Reader', related_name='library_card')
+    registered_date = fields.DateField(auto_now_add=True)
 
     class Meta:
         table = "LibraryCard"
